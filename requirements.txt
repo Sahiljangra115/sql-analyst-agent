@@ -1,0 +1,8 @@
+# versions in the ml venv used for every run in this README (Python 3.13.13)
+langgraph==1.2.14
+httpx==0.28.1
+duckdb==1.5.6
+pytest==9.1.1
+# optional, only for the matching backend / tracing
+# anthropic          (SQLAGENT_BACKEND=anthropic; not installed here, never run)
+langfuse==4.17.0

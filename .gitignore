@@ -1,0 +1,11 @@
+data/minidev/
+data/*.sqlite*
+data/*.duckdb*
+results/smoke/
+results/**/*.log
+logs/
+__pycache__/
+.pytest_cache/
+.env
+.env.*
+*.zip
