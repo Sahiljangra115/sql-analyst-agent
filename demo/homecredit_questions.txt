@@ -1,0 +1,3 @@
+How many applicants defaulted (TARGET = 1), by gender?
+What is the default rate by education type, highest first?
+What is the average credit amount for each contract type?
