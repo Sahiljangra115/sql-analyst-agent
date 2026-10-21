@@ -1,0 +1,124 @@
+ollama:gemma4:e2b on data/homecredit.duckdb. Empty line or Ctrl-D to quit.
+question> How many applicants defaulted (TARGET = 1), by gender?
+SQL: SELECT
+  CODE_GENDER,
+  count(*)
+FROM application_train
+WHERE
+  TARGET = 1
+GROUP BY
+  CODE_GENDER;
+[ok] cols=['CODE_GENDER', 'count_star()']
+   ('M', 10655)
+   ('F', 14170)
+Answer: ```sql
+SELECT
+  CODE_GENDER,
+  count(*)
+FROM application_train
+WHERE
+  TARGET = 1
+GROUP BY
+  CODE_GENDER;
+```
+There were 10,655 defaulted applicants for males and 14,170 for females.
+retries=0 llm_calls=3 tokens=1889+209 cost=$0.000000 (session $0.000000)
+question> What is the default rate by education type, highest first?
+SQL: SELECT
+  NAME_EDUCATION_TYPE,
+  AVG(prev_refused_rate)
+FROM model_table
+WHERE
+  NAME_EDUCATION_TYPE IS NOT NULL
+GROUP BY
+  NAME_EDUCATION_TYPE
+ORDER BY
+  AVG(prev_refused_rate) DESC;
+[ok] cols=['NAME_EDUCATION_TYPE', 'avg(prev_refused_rate)']
+   ('Secondary', 0.18486765278733494)
+   ('Incomplete higher', 0.12555584410296003)
+   ('Higher education', 0.11578099596796514)
+   ('Lower secondary', 0.1116095183494761)
+   ('Secondary / secondary special', 0.11143754087624193)
+   ('Academic degree', 0.1009473641826583)
+Answer: ```sql
+SELECT
+  NAME_EDUCATION_TYPE,
+  AVG(prev_refused_rate)
+FROM model_table
+WHERE
+  NAME_EDUCATION_TYPE IS NOT NULL
+GROUP BY
+  NAME_EDUCATION_TYPE
+ORDER BY
+  AVG(prev_refused_rate) DESC
+```
+The default rate by education type, ordered from highest to lowest, shows that 'Secondary' has the highest average refusal rate at approximately 0.1849.
+retries=0 llm_calls=3 tokens=3547+345 cost=$0.000000 (session $0.000000)
+question> What is the average credit amount for each contract type?
+SQL: SELECT
+  T1.NAME_CONTRACT_TYPE,
+  AVG(T1.AMT_CREDIT)
+FROM application_train AS T1
+GROUP BY
+  T1.NAME_CONTRACT_TYPE
+[ok] cols=['NAME_CONTRACT_TYPE', 'avg(T1.AMT_CREDIT)']
+   ('Revolving loans', 324017.9821715223)
+   ('Cash loans', 627965.7325379539)
+Answer: ```sql
+SELECT
+  NAME_CONTRACT_TYPE,
+  AVG(AMT_CREDIT)
+FROM application_train
+GROUP BY
+  NAME_CONTRACT_TYPE
+```
+retries=0 llm_calls=3 tokens=3804+142 cost=$0.000000 (session $0.000000)
+question> Which 5 occupation types have the highest default rate?
+SQL: SELECT
+  OCCUPATION_TYPE,
+  AVG(TARGET)
+FROM application_train
+WHERE
+  TARGET = 1
+GROUP BY
+  OCCUPATION_TYPE
+ORDER BY
+  AVG(TARGET) DESC
+LIMIT 5;
+[ok] cols=['OCCUPATION_TYPE', 'avg("TARGET")']
+   ('Secretaries', 1.0)
+   ('Sales staff', 1.0)
+   ('Core staff', 1.0)
+   ('Low-skill Laborers', 1.0)
+   ('Accountants', 1.0)
+Answer: ```sql
+SELECT
+  OCCUPATION_TYPE
+FROM application_train
+WHERE
+  TARGET = 1
+GROUP BY
+  OCCUPATION_TYPE
+ORDER BY
+  AVG(TARGET) DESC
+LIMIT 5
+```
+retries=0 llm_calls=3 tokens=3363+274 cost=$0.000000 (session $0.000000)
+question> How many previous applications were refused, and what percentage of all previous applications is that?
+SQL: SELECT
+  COUNT(SK_ID_PREV) * 100.0 / (
+    SELECT
+      COUNT(SK_ID_PREV)
+    FROM previous_application
+  )
+FROM previous_application;
+[ok] cols=['((count(SK_ID_PREV) * 100.0) / (SELECT count(SK_ID_PREV) FROM previous_application))']
+   (100.0,)
+Answer: ```sql
+SELECT COUNT(SK_ID_PREV) * 100.0 / (SELECT COUNT(SK_ID_PREV) FROM previous_application)
+FROM previous_application;
+```
+The percentage of previous applications that were refused is 100.0%.
+retries=1 llm_calls=4 tokens=4514+845 cost=$0.000000 (session $0.000000)
+question> 

@@ -1,0 +1,75 @@
+ollama:gemma4:e2b on data/smogcast.sqlite. Empty line or Ctrl-D to quit.
+question> Which location had the worst PM2.5 the day after Diwali 2025 (2025-10-21)?
+SQL: SELECT
+  location
+FROM daily
+WHERE
+  date_ist = '2025-10-22'
+ORDER BY
+  pm2_5_mean DESC
+LIMIT 1;
+[ok] cols=['location']
+   ('dwarka',)
+Answer: ```sql
+SELECT location
+FROM daily
+WHERE date_ist = '2025-10-22'
+ORDER BY pm2_5_mean DESC
+LIMIT 1;
+```
+The location with the worst PM2.5 the day after Diwali 2025 (2025-10-21) was dwarka.
+retries=0 llm_calls=3 tokens=2038+274 cost=$0.000000 (session $0.000000)
+question> Which month of 2025 had the highest average PM2.5 at delhi_centre?
+SQL: SELECT
+  strftime('%Y-%m', T2.date_ist) AS month,
+  AVG(T2.pm2_5)
+FROM hourly AS T2
+INNER JOIN locations AS T1
+  ON T2.location = T1.location
+WHERE
+  T1.location = 'delhi_centre' AND T2.date_ist LIKE '2025-%'
+GROUP BY
+  month
+ORDER BY
+  AVG(T2.pm2_5) DESC
+LIMIT 1;
+[ok] cols=['month', 'AVG(T2.pm2_5)']
+   ('2025-12', 126.85389784946237)
+Answer: ```sql
+SELECT
+  strftime('%Y-%m', T2.date_ist)
+FROM hourly AS T2
+INNER JOIN locations AS T1
+  ON T2.location = T1.location
+WHERE
+  T1.location = 'delhi_centre' AND T2.date_ist LIKE '2025-%'
+GROUP BY
+  month
+ORDER BY
+  AVG(T2.pm2_5) DESC
+LIMIT 1;
+```
+The month of 2025 with the highest average PM2.5 at delhi_centre was December 2025, with an average of 126.85389784946237.
+retries=1 llm_calls=4 tokens=3182+631 cost=$0.000000 (session $0.000000)
+question> On how many days in 2025 did anand_vihar have a daily mean PM2.5 above 60?
+SQL: SELECT
+  COUNT(T1.date_ist)
+FROM daily AS T1
+INNER JOIN locations AS T2
+  ON T1.location = T2.location
+WHERE
+  T1.location = 'anand_vihar' AND T1.pm2_5_mean > 60 AND T1.date_ist LIKE '2025-%';
+[ok] cols=['COUNT(T1.date_ist)']
+   (244,)
+Answer: ```sql
+SELECT
+  COUNT(T1.date_ist)
+FROM daily AS T1
+INNER JOIN locations AS T2
+  ON T1.location = T2.location
+WHERE
+  T1.location = 'anand_vihar' AND T1.pm2_5_mean > 60 AND T1.date_ist LIKE '2025-%';
+```
+There were 244 days in 2025 when the daily mean PM2.5 for anand_vihar was above 60.
+retries=0 llm_calls=3 tokens=2102+384 cost=$0.000000 (session $0.000000)
+question> 

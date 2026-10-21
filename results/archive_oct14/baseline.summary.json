@@ -1,0 +1,43 @@
+{
+  "config": "baseline",
+  "settings": {
+    "retrieval": false,
+    "use_plan": true,
+    "max_retries": 0,
+    "use_evidence": true,
+    "timeout_s": 10.0,
+    "max_rows": 1000000,
+    "summarize": false
+  },
+  "model": "ollama:gemma4:e2b",
+  "n": 100,
+  "ex": 0.52,
+  "ex_by_difficulty": {
+    "challenging": {
+      "n": 25,
+      "ex": 0.28
+    },
+    "moderate": {
+      "n": 53,
+      "ex": 0.5094
+    },
+    "simple": {
+      "n": 22,
+      "ex": 0.8182
+    }
+  },
+  "failures": {
+    "syntax_error": 10,
+    "wrong_aggregation": 12,
+    "wrong_filter": 9,
+    "wrong_join": 12,
+    "hallucinated_column": 5
+  },
+  "mean_steps": 4.0,
+  "mean_llm_calls": 2.0,
+  "mean_cost_usd": 0.0,
+  "mean_tokens": 5275,
+  "p95_wall_s": 5.24,
+  "gold_failed": 0,
+  "note": "first 100 records of results/extra/baseline_n200.jsonl (seed-0 sample of 100 is the prefix of the seed-0 sample of 200)"
+}
