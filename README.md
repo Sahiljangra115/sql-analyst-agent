@@ -29,7 +29,7 @@ Checked: all 500 gold queries pass the sandbox without false rejections. One gol
 ## Run
 
 ```
-export ML_VENV=/home/ladliju/Developer/Machine-learning/.venv
+export ML_VENV=/path/to/your/venv
 source $ML_VENV/bin/activate
 export PYTHONPATH=src
 python -m sqlagent selfcheck --db-root data/minidev/dbs
