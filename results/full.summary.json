@@ -1,0 +1,43 @@
+{
+  "config": "full",
+  "settings": {
+    "retrieval": true,
+    "use_plan": true,
+    "max_retries": 2,
+    "use_evidence": true,
+    "timeout_s": 10.0,
+    "max_rows": 1000000,
+    "summarize": false
+  },
+  "model": "ollama:gemma4:e2b",
+  "n": 200,
+  "ex": 0.505,
+  "ex_by_difficulty": {
+    "challenging": {
+      "n": 47,
+      "ex": 0.3191
+    },
+    "moderate": {
+      "n": 100,
+      "ex": 0.48
+    },
+    "simple": {
+      "n": 53,
+      "ex": 0.717
+    }
+  },
+  "failures": {
+    "wrong_join": 39,
+    "wrong_aggregation": 20,
+    "wrong_filter": 13,
+    "syntax_error": 14,
+    "hallucinated_column": 6,
+    "other_wrong_result": 7
+  },
+  "mean_steps": 4.9,
+  "mean_llm_calls": 2.45,
+  "mean_cost_usd": 0.0,
+  "mean_tokens": 3828,
+  "p95_wall_s": 6.78,
+  "gold_failed": 0
+}
